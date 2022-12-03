@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    background-color: #121214;
+    color: #FFF;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+}
+
+.form-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+#container form input{
+    width: 100%;
+    padding: 8px 12px;
+}
+
+.btn-cadastrar{
+    padding: 8px 12px; 
+    background-color: #46d877;  
+    margin: 15px 0px;
+    font-weight: bold;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.btn-cadastrar:hover{
+    filter: brightness(1.1)
+}
+
