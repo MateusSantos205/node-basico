@@ -39,7 +39,19 @@ app.get('/cadastrar',(req,res)=>{
 // cria a rota consultar
 app.get('/consultar',(req,res)=>{
     res.status(200)
-    res.send('<h1>Consultar</h1>')
+    
+    try {
+        let sql = "SELECT nome,email,ativo,data_cadastro FROM tb_login"
+        con.query(sql,(error,result)=>{
+            if(error){
+                res.send(`Não foi possivel listar os registros ${error}`)
+            } 
+            res.send(result)
+        })
+    } catch (error) {
+        res.send(`Não foi possivel listar os registros ${error}`)
+    }
+
 })
 
 // cria a rota para cadastrar login
@@ -93,6 +105,24 @@ app.post('/cadastrar/login',(req,res)=>{
 
 })
 
+// rota para atualização de registros
+app.patch('/atualizar/login',(req,res)=>{
+    // cria a var nome e email e atribui os valores enviados via param
+    let {id,nome,email} = req.body
+
+    try {
+        let sql = `UPDATE tb_login SET nome='${nome}', email='${email}' WHERE id=${id}`;
+        con.query(sql,(error,result)=>{
+            if(error){
+                return res.send(`Não foi possivel atualizar od dados ${error}`)
+            }
+            res.send(`Dados atualizados com sucesso`)
+        })
+
+    } catch (error) {
+        res.send(`Não foi possivel atualizar od dados ${error}`)
+    }
+})
 
 
 // rota para retorno da pagina de erro
