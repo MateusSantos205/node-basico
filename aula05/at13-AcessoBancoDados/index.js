@@ -37,11 +37,19 @@ app.get('/cadastrar',(req,res)=>{
 })
 
 // cria a rota consultar
-app.get('/consultar',(req,res)=>{
+app.get('/consultar/:id?',(req,res)=>{
     res.status(200)
     
     try {
-        let sql = "SELECT nome,email,ativo,data_cadastro FROM tb_login"
+        // captura o id enviado ou não via url
+        let id = req.params.id
+
+        if (typeof id == 'undefined') {
+            var sql = `SELECT nome,email,ativo,data_cadastro FROM tb_login`
+        } else {
+            var sql = `SELECT nome,email,ativo,data_cadastro FROM tb_login WHERE id = ${id}`
+        }
+        
         con.query(sql,(error,result)=>{
             if(error){
                 res.send(`Não foi possivel listar os registros ${error}`)
@@ -94,12 +102,6 @@ app.post('/cadastrar/login',(req,res)=>{
         res.send(`Erro ao cadastrar: ${error}`)
     }
 
-    
-
-    
-
-
-
     // res.json({ retorno: 'ok',mensagem:'Usuário add com sucesso!' })    
 
 
@@ -124,6 +126,26 @@ app.patch('/atualizar/login',(req,res)=>{
     }
 })
 
+// rota para remover registro(deletar)
+app.delete('/deletar/login',(req,res)=>{
+    let id = req.body.id
+
+    try {
+        // comando sql que sera executado
+        let sql = `DELETE FROM tb_login WHERE id= ${id}`
+
+        con.query(sql,(error,result)=>{
+            if(error){
+                return res.send(`Não foi possivel deletar o registro! ${error}`)
+            }
+            res.send(`Registro deletado com sucesso`)
+        })
+
+    } catch (error) {
+        return res.send(`Não foi possivel deletar o registro! ${error}`)
+    }
+
+})
 
 // rota para retorno da pagina de erro
 // super mega importante -> ficar no final das rotas
