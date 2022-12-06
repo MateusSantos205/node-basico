@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="container">        
-        <form action="/cadastrar/login" method="POST">
+        <form id="form-login">
             <h2>Cadastrar Login</h2>
             <div class="form-grid">
                 <div>
@@ -28,9 +28,13 @@
                     <input type="password" name="confirmar" id="confirmar">
                 </div>
             </div>
-            <input class="btn-cadastrar" type="submit" value="Cadastrar">
+            <input class="btn-cadastrar" type="button" value="Cadastrar" onclick="cadastrarLogin()">
         </form>
     </div>
+
+    
+    <script src="js/sweetalert2@11.js"></script>
+    <script src="js/jquery-3.6.1.min.js"></script>
     <script src="js/cadastrar.js"></script>
 </body>
 </html>
