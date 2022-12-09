@@ -172,9 +172,25 @@ app.post("/validar/login", (req, res) => {
         });
       }
 
-      res.json(result);
+      if (result == "") {
+        res.json({
+          retorno: "erro",
+          mensagem: `Não foi possivel valiudar o usuário!`,
+        });
+      } else {
+        // nesse trecho de codigo é iniciada a sessao do usuario
+        // em NODE.JS o mais comum é utilizar:
+        // LOCALSTORAGE, SESSIONSTORAGE ou COOKIES para armazenar dados da sessao usuario
+        // pesquisar sobre autenticação JWTToken
+        res.json({ retorno: "ok", mensagem: `Aguarde, estamos logando!` });
+      }
     });
-  } catch (error) {}
+  } catch (error) {
+    res.json({
+      retorno: "erro",
+      mensagem: `Não foi possivel validar o usuário! ${error}`,
+    });
+  }
 });
 
 // rota para retorno da pagina de erro
